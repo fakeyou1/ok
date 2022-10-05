@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.back{width: 500px;height: 500px;border: 1px solid black;}
+			.bott{width: 500px;height:50px;border-bottom: 1px solid black;text-align: center;line-height: 50px;}
+			#top{width: 500px;height: 250px;border-bottom: 1px solid black;}
+			#bottom{width: 500px;height: 200px;}
+		</style>	
+	</head>
+	<body>
+		<div class="back">
+		<div class="bott">
+		<input type="text" id="text"/>
+		<button onclick="add()">添加</button>
+		</div>
+		 <div id="top"></div>
+	      <div id="bottom"></div>
+			</div>
+		<script>
+	
+	
+		/*添加数据
+		push
+		 渲染数组中的数据{
+			 当前标签{
+				 for
+			 }
+			 添加后的标签{
+				 for
+			 }
+		 }
+		 移动
+		 需要上下两个数组
+		 {
+			 点击上面的内容{
+				 下面数组需要添加元素；
+				 上面数组需要删除元素
+				 上下都要重新渲染
+			 }
+			 点击下面的内容
+			 {
+				 下面数组需要添加元素；
+				 上面数组需要删除元素
+				 上下都要重新渲染
+			 }
+		 }
+		*/
+		
+		
+		
+			var arr=[]
+			function add(){
+			var text=document.getElementById('text').value//获取text的value值
+				if(text!=''){//如果text不为空
+				arr.push(text)//数组尾部添加text
+				console.log(arr)
+				var html=document.getElementById('bottom').innerHTML//获取bottom的HTML
+				document.getElementById('text').value=''//text为空
+				document.getElementById('text').focus()//获取焦点
+				for(var i=0;i<arr.length;i++){//for循环,i小于arr数组的长度
+					//拼串
+			document.getElementById('bottom').innerHTML=html+"<button onclick="+"abc("+i+")"+">"+arr[i]+'&nbsp;&nbsp;&nbsp;'+'</button>'	//获取bottom的 HTML=html+属性
+			}
+			}else{
+				alert('数据不能为空')
+			}
+			}		
+			
+			var abb=[]
+			function abc(index){//随机值
+			abb.push(arr.splice(index,1))//向abb尾部添加替换arr随机值
+			console.log(abb)
+				document.getElementById('bottom').innerHTML=''//让bottom为空
+				var get=document.getElementById('top').innerHTML//获取top的html
+				for(var i=0;i<arr.length;i++){
+					document.getElementById('bottom').innerHTML+="<button onclick="+"abc("+i+")"+">"+arr[i]+'&nbsp;&nbsp;&nbsp;'+'</button>'
+					}
+					for(var i=0;i<abb.length;i++){
+						document.getElementById('top').innerHTML=get+"<button onclick="+"box("+i+")"+">"+abb[i]+'&nbsp;&nbsp;&nbsp;'+'</button>'//top的数组abb的值,//点击bottom跳到top
+			}
+			}
+			
+			
+				//复杂的问题简单化，拆分化
+				
+             function box(index){
+			arr.push(abb.splice(index,1))//向arr尾部截取掉abb随机值
+			console.log(arr)
+				document.getElementById('top').innerHTML=''
+				var get=document.getElementById('bottom').innerHTML
+				for(var i=0;i<abb.length;i++){
+					document.getElementById('top').innerHTML+="<button onclick="+"box("+i+")"+">"+abb[i]+'&nbsp;&nbsp;&nbsp;'+'</button>'
+					}
+				for(var i=0;i<arr.length;i++){
+			document.getElementById('bottom').innerHTML=get+"<button onclick="+"abc("+i+")"+">"+arr[i]+'&nbsp;&nbsp;&nbsp;'+'</button>'//点击top跳到bottom
+			}
+			}
+		
+
+              
+			  
+			  
+			  
+
+		</script>	
+	</body>
+</html>
